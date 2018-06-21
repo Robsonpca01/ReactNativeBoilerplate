@@ -1,34 +1,48 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { BackHandler } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { AppRegistry } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text>Open up App.js to start working on your app!</Text>
-//         <Text>Changes you make will automatically reload.</Text>
-//         <Text>Shake your phone to open the developer menu.</Text>
-//       </View>
-//     );
-//   }
-// }
+import AppReducer from './src/reducers';
+import { AppNavigator, middleware } from './src/navigators/AppNavigator';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const store = createStore(AppReducer, applyMiddleware(middleware));
 
-export const App = () => (
-  <View style={styles.container}>
-    <Text>React Native boilerplate app.</Text>
-    <Text>Open up App.js to start working on your app!</Text>
-    <Text>Changes you make will automatically reload.</Text>
-    <Text>Shake your phone to open the developer menu.</Text>
-  </View>
-);
+class ReduxExampleApp extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
 
-export default App;
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () => {
+    console.log('back button clicked');
+    console.log(this.props);
+    const { dispatch, nav } = this.props;
+    /* if (nav.index === 0) {
+      return false;
+    } */
+
+    // this.props.navigation.dispatch(NavigationActions.back());
+    return true;
+  };
+
+
+  render() {
+    return (
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    );
+  }
+}
+
+AppRegistry.registerComponent('ReduxExample', () => ReduxExampleApp);
+
+export default ReduxExampleApp;
