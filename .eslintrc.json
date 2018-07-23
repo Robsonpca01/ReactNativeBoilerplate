@@ -12,6 +12,23 @@
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "linebreak-style": ["error", "unix"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "class-methods-use-this": ["error", {
+      "exceptMethods": [
+        "get",
+        "render",
+        "getInitialState",
+        "getDefaultProps",
+        "getChildContext",
+        "componentWillMount",
+        "componentDidMount",
+        "componentWillReceiveProps",
+        "shouldComponentUpdate",
+        "componentWillUpdate",
+        "componentDidUpdate",
+        "componentWillUnmount",
+      ]
+    }]
+    
   }
 }

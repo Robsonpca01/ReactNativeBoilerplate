@@ -1,10 +1,10 @@
 import React from 'react';
 import lifecycle from 'react-pure-lifecycle';
 // import { NavigationActions } from 'react-navigation';
-import { StyleSheet, View, BackHandler } from 'react-native';
-
-import LoginStatusMessage from './LoginStatusMessage';
-import AuthButton from './AuthButton';
+import { StyleSheet, View, BackHandler, Button } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import LoginStatusMessage from '../components/LoginStatusMessage';
+import AuthButton from '../components/AuthButton';
 
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 let globalprop;
 
 const onBackPress = () => {
-  console.log('back button clicked');
+  console.log('back button clicked 43');
 
   // globalprop.navigation.dispatch({ type: 'Login' });
   // globalprop.navigation.dispatch(NavigationActions.back());
@@ -43,6 +43,8 @@ const MainScreen = () => (
   <View style={styles.container}>
     <LoginStatusMessage />
     <AuthButton />
+    <Button onPress={() => globalprop.navigation.dispatch(NavigationActions.navigate({ routeName: 'Api' }))}
+      title="Tela de Testes 5" />
   </View>
 );
 

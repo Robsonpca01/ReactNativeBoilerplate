@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 import {
@@ -7,9 +5,10 @@ import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 
-import LoginScreen from '../components/LoginScreen';
-import MainScreen from '../components/MainScreen';
-import ProfileScreen from '../components/ProfileScreen';
+import LoginScreen from '../screens/LoginScreen';
+import MainScreen from '../screens/MainScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import ApiTesteScreen from '../screens/ApiTesteScreen';
 
 const middleware = createReactNavigationReduxMiddleware(
   'root',
@@ -17,9 +16,10 @@ const middleware = createReactNavigationReduxMiddleware(
 );
 
 const RootNavigator = createStackNavigator({
-  Login: { screen: LoginScreen },
   Main: { screen: MainScreen },
+  Login: { screen: LoginScreen },  
   Profile: { screen: ProfileScreen },
+  Api : { screen: ApiTesteScreen }
 });
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
