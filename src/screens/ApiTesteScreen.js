@@ -1,33 +1,51 @@
 import React from 'react';
-import lifecycle from 'react-pure-lifecycle';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import request from '../utils/request';
 
-const lifecycleMethods = {
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: 'oi',
+            text : 'default placeholder'
+        };
+    }
+
+    loadJson = async () => {
+        return await request.get('https://3jaevi37ej.execute-api.us-east-2.amazonaws.com/defaultRob/getuser');
+    }
+
+    newText = (text) => {
+        this.setState({
+            text
+        })
+    }
+
     componentWillMount(props){
         console.log('component will mount');
-        loadJson().then((value) =>{
-            console.log(value.data);
+        this.loadJson().then((value) =>{
             this.setState({
-                response : value.data
-            }, () => {
-                console.log(this.state.response);
+                username : value.data.username
             })
         })
     }
+
+    render() {
+        return (
+            <View>
+                <Text>
+                    {'Test Screen'}                    
+                </Text>
+                <Text>
+                    {this.state.username}                    
+                </Text>
+                <TextInput 
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    value={this.state.text}
+                    onChangeText={(text) => this.newText(text)} />
+            </View>
+        )
+    }
 }
 
-const loadJson = async () => {
-    return await request.get('https://3jaevi37ej.execute-api.us-east-2.amazonaws.com/defaultRob/teste');
-}
-
-const Screen = () => (
-    <View>
-        <Text>
-            {'teste'}
-        </Text>
-    </View>
-);
-
-
-export default lifecycle(lifecycleMethods)(Screen);
+export default App;
