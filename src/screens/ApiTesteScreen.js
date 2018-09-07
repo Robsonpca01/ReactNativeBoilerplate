@@ -3,6 +3,10 @@ import { View, Text, TextInput } from 'react-native';
 import request from '../utils/request';
 
 class App extends React.Component {
+    static navigationOptions = {
+        title: 'Home',
+      };
+      
     constructor(props) {
         super(props);
         this.state = {

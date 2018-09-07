@@ -20,7 +20,8 @@ const RootNavigator = createStackNavigator({
   Login: { screen: LoginScreen },  
   Profile: { screen: ProfileScreen },
   Api : { screen: ApiTesteScreen }
-});
+}
+);
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 
